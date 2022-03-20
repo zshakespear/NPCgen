@@ -24,23 +24,36 @@ Qgen = pd.read_excel(wd, sheet_name='Quirks')
 Mgen= pd.read_excel(wd, sheet_name='Motivations')
 Igen = pd.read_excel(wd, sheet_name='Items&Clothing')
 
-numcol = len(Mgen.axes[1])
-mcol = random.randint(0,numcol-1)
-Mgen = Mgen.iloc[:, mcol]
-Mgen = Mgen[Mgen.notna()]
+numcol = len(Agen.axes[1])
+acol = random.randint(0, numcol - 1)
+Agen = Agen.iloc[:, acol]
+Agen = Agen[Agen.notna()]
+
+del acol
 
 numcol = len(Qgen.axes[1])
 qcol = random.randint(0, numcol - 1)
 Qgen = Qgen.iloc[:, qcol]
 Qgen = Qgen[Qgen.notna()]
 
+del qcol
 
-Arandlimit = Agen['General'].size - 1
+numcol = len(Mgen.axes[1])
+mcol = random.randint(0,numcol-1)
+Mgen = Mgen.iloc[:, mcol]
+Mgen = Mgen[Mgen.notna()]
+
+del mcol
+
+
+del numcol
+
+Arandlimit = Agen.size - 1
 Qrandlimit = Qgen.size - 1
 Mrandlimit = Mgen.size - 1
 Irandlimit = Igen.size - 1
 
-npcA = pd.DataFrame([['Appearance: ', Agen['General'].at[random.randint(0,Arandlimit)]]])
+npcA = pd.DataFrame([['Appearance: ', Agen.at[random.randint(0,Arandlimit)]]])
 npcI = pd.DataFrame([['Items: ', Igen['General'].at[random.randint(0,Irandlimit)]]])
 npcQ = pd.DataFrame([['Quirk: ', Qgen.at[random.randint(0,Qrandlimit)]]])
 npcM = pd.DataFrame([['Motivation: ', Mgen.at[random.randint(0,Mrandlimit)]]])
@@ -52,7 +65,22 @@ with open("newNPC.txt", 'w') as file:
         textDummy = npcProf.to_string(header=False, index = False)
         file.write(textDummy)
 
-
+del Agen
+del Arandlimit
+del file
+del Igen
+del Irandlimit
+del Mgen
+del Mrandlimit
+del npcA
+del npcI
+del npcM
+del npcQ
+del npcProf
+del Qgen
+del Qrandlimit
+del textDummy
+del wd
 """
 period = input("Enter the number of years for the timeline: ")
 period = int(period)
