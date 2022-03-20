@@ -27,15 +27,22 @@ Qgen = pd.read_excel(wd, sheet_name='Quirks')
 Qgen = Qgen[Qgen['Mannerisms'].notna()]
 Mgen= pd.read_excel(wd, sheet_name='Motivations')
 Igen = pd.read_excel(wd, sheet_name='Items&Clothing')
+
+numcol = len(Mgen.axes[1])
+mcol = random.randint(0,numcol-1)
+Mgen = Mgen.iloc[:, mcol]
+Mgen = Mgen[Mgen.notna()]
+
+
 Arandlimit = Agen['General'].size - 1
 Qrandlimit = Qgen['Mannerisms'].size - 1
-Mrandlimit = Mgen['Relationships'].size - 1
+Mrandlimit = Mgen.size - 1
 Irandlimit = Igen.size - 1
 
 npcA = pd.DataFrame([['Appearance: ', Agen['General'].at[random.randint(0,Arandlimit)]]])
 npcI = pd.DataFrame([['Items: ', Igen['General'].at[random.randint(0,Irandlimit)]]])
 npcQ = pd.DataFrame([['Quirk: ', Qgen['Mannerisms'].at[random.randint(0,Qrandlimit)]]])
-npcM = pd.DataFrame([['Motivation: ', Mgen['Relationships'].at[random.randint(0,Mrandlimit)]]])
+npcM = pd.DataFrame([['Motivation: ', Mgen.at[random.randint(0,Mrandlimit)]]])
 
 
 npcProf = pd.concat([npcA,npcI,npcQ,npcM])
