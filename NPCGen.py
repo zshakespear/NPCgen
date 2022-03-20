@@ -7,9 +7,6 @@ The purpose of this program is to assist in generating
 NPCs for the CDS setting
 
 TO-DO:
-    -Let the NPC have a motivation from any one of the columns
-    -Let an NPC have a quirk from any one of the columns
-    -Implement items
     -Add appearances unique to species
     -Allow user to select varying levels of randomness
     
@@ -24,7 +21,6 @@ wd+='\GenNPC.xlsx'
 
 Agen = pd.read_excel(wd, sheet_name='Appearance')
 Qgen = pd.read_excel(wd, sheet_name='Quirks')
-Qgen = Qgen[Qgen['Mannerisms'].notna()]
 Mgen= pd.read_excel(wd, sheet_name='Motivations')
 Igen = pd.read_excel(wd, sheet_name='Items&Clothing')
 
@@ -33,15 +29,20 @@ mcol = random.randint(0,numcol-1)
 Mgen = Mgen.iloc[:, mcol]
 Mgen = Mgen[Mgen.notna()]
 
+numcol = len(Qgen.axes[1])
+qcol = random.randint(0, numcol - 1)
+Qgen = Qgen.iloc[:, qcol]
+Qgen = Qgen[Qgen.notna()]
+
 
 Arandlimit = Agen['General'].size - 1
-Qrandlimit = Qgen['Mannerisms'].size - 1
+Qrandlimit = Qgen.size - 1
 Mrandlimit = Mgen.size - 1
 Irandlimit = Igen.size - 1
 
 npcA = pd.DataFrame([['Appearance: ', Agen['General'].at[random.randint(0,Arandlimit)]]])
 npcI = pd.DataFrame([['Items: ', Igen['General'].at[random.randint(0,Irandlimit)]]])
-npcQ = pd.DataFrame([['Quirk: ', Qgen['Mannerisms'].at[random.randint(0,Qrandlimit)]]])
+npcQ = pd.DataFrame([['Quirk: ', Qgen.at[random.randint(0,Qrandlimit)]]])
 npcM = pd.DataFrame([['Motivation: ', Mgen.at[random.randint(0,Mrandlimit)]]])
 
 
