@@ -24,6 +24,7 @@ wd+='\GenNPC.xlsx'
 
 Agen = pd.read_excel(wd, sheet_name='Appearance')
 Qgen = pd.read_excel(wd, sheet_name='Quirks')
+Qgen = Qgen[Qgen['Mannerisms'].notna()]
 Mgen= pd.read_excel(wd, sheet_name='Motivations')
 Arandlimit = Agen['General'].size - 1
 Qrandlimit = Qgen['Mannerisms'].size - 1
